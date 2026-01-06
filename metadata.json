@@ -1,0 +1,9 @@
+{
+  "name": "GeminiiOS",
+  "description": "A premium, mobile-first GenAI application with iOS-style design, Supabase authentication, and user-managed API keys.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera",
+    "geolocation"
+  ]
+}
