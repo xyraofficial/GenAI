@@ -125,7 +125,12 @@ const App: React.FC = () => {
       
       {/* Main Content Area */}
       <main className="flex-1 overflow-hidden relative w-full h-full">
-        {currentView === AppView.CHAT && <ChatView user={userProfile} />}
+        {currentView === AppView.CHAT && (
+          <ChatView 
+            user={userProfile} 
+            onBack={() => setCurrentView(AppView.HOME)} 
+          />
+        )}
         {currentView === AppView.PROFILE && (
           <ProfileView 
             user={userProfile} 
@@ -190,7 +195,10 @@ const App: React.FC = () => {
                     </div>
                   ))}
                 </div>
-                <div className="p-3 bg-gray-50 text-center text-sm font-medium text-ios-blue border-t border-gray-100 cursor-pointer">
+                <div 
+                  className="p-3 bg-gray-50 text-center text-sm font-medium text-ios-blue border-t border-gray-100 cursor-pointer hover:bg-gray-100 active:bg-gray-200 transition-colors"
+                  onClick={() => setCurrentView(AppView.CHAT)}
+                >
                   View All History
                 </div>
              </div>
@@ -198,29 +206,31 @@ const App: React.FC = () => {
         )}
       </main>
 
-      {/* Bottom Navigation Bar */}
-      <nav className="bg-white/90 backdrop-blur-xl border-t border-gray-200 pb-safe pt-2 px-6 shadow-ios-nav z-30 fixed bottom-0 w-full">
-        <div className="flex justify-around items-center h-14">
-          <NavButton 
-            active={currentView === AppView.HOME} 
-            onClick={() => setCurrentView(AppView.HOME)} 
-            icon={<Home className="w-6 h-6" />} 
-            label="Home" 
-          />
-          <NavButton 
-            active={currentView === AppView.CHAT} 
-            onClick={() => setCurrentView(AppView.CHAT)} 
-            icon={<Plus className="w-6 h-6" />} 
-            label="New Chat" 
-          />
-          <NavButton 
-            active={currentView === AppView.PROFILE} 
-            onClick={() => setCurrentView(AppView.PROFILE)} 
-            icon={<UserIcon className="w-6 h-6" />} 
-            label="Profile" 
-          />
-        </div>
-      </nav>
+      {/* Bottom Navigation Bar - Hidden in Chat View */}
+      {currentView !== AppView.CHAT && (
+        <nav className="bg-white/90 backdrop-blur-xl border-t border-gray-200 pb-safe pt-2 px-6 shadow-ios-nav z-30 fixed bottom-0 w-full">
+          <div className="flex justify-around items-center h-14">
+            <NavButton 
+              active={currentView === AppView.HOME} 
+              onClick={() => setCurrentView(AppView.HOME)} 
+              icon={<Home className="w-6 h-6" />} 
+              label="Home" 
+            />
+            <NavButton 
+              active={false} 
+              onClick={() => setCurrentView(AppView.CHAT)} 
+              icon={<Plus className="w-6 h-6" />} 
+              label="New Chat" 
+            />
+            <NavButton 
+              active={currentView === AppView.PROFILE} 
+              onClick={() => setCurrentView(AppView.PROFILE)} 
+              icon={<UserIcon className="w-6 h-6" />} 
+              label="Profile" 
+            />
+          </div>
+        </nav>
+      )}
     </div>
   );
 };

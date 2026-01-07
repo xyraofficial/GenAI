@@ -3,7 +3,7 @@ import { ChatSource, ToolMode } from "../types";
 
 interface GenerateParams {
   prompt: string;
-  apiKey: string;
+  apiKey?: string;
   mode: ToolMode;
   systemInstruction?: string;
 }
@@ -44,11 +44,14 @@ export const generateResponse = async ({
   systemInstruction
 }: GenerateParams): Promise<GenAIResult> => {
   
-  if (!apiKey) {
-    throw new Error("API configuration missing. Please contact the administrator.");
+  // Use user-provided key or fallback to system environment variable
+  const finalApiKey = apiKey || process.env.API_KEY;
+
+  if (!finalApiKey) {
+    throw new Error("API configuration missing. Please add API_KEY to your environment variables or user profile.");
   }
 
-  const ai = new GoogleGenAI({ apiKey });
+  const ai = new GoogleGenAI({ apiKey: finalApiKey });
   let modelName = 'gemini-3-flash-preview'; // Default "Fast" model
   let tools: any[] = [];
   let toolConfig: any = undefined;

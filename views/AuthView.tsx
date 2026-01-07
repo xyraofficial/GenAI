@@ -102,12 +102,13 @@ export const AuthView: React.FC<AuthViewProps> = ({ onLoginSuccess }) => {
           <p className="text-gray-500 text-sm">
             {mode === 'signin' ? "Don't have an account?" : "Already have an account?"}
             <button 
+              type="button"
               onClick={() => {
                 setMode(mode === 'signin' ? 'signup' : 'signin');
                 setError(null);
                 setMessage(null);
               }}
-              className="ml-1 text-ios-blue font-semibold"
+              className="ml-1 text-ios-blue font-semibold outline-none active:opacity-70"
             >
               {mode === 'signin' ? 'Sign Up' : 'Sign In'}
             </button>

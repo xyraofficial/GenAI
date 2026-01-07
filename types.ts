@@ -26,6 +26,7 @@ export interface ChatMessage {
   images?: string[]; // base64 data URIs
   sources?: ChatSource[];
   toolUsed?: ToolMode;
+  feedback?: 'like' | 'dislike' | null;
 }
 
 export interface ChatSession {
